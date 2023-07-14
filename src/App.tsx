@@ -1,4 +1,3 @@
-import './App.css'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks'
@@ -12,7 +11,6 @@ export default function App() {
   const userID = useAppSelector(state => state.userGlobal.global.id)
 
   useEffect(() => {
-    console.log('background auth');
     (async function () {
       const response = await dispatch(backgroundAuth())
       if (!response.payload) {

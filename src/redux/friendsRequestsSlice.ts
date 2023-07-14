@@ -19,7 +19,6 @@ type ansDataRec = Record<'status' | 'id', string>
 export const fetchFriendsRequests = createAsyncThunk<IFriendReq[], string, { rejectValue: string }>(
     "friendsRequests/fetch",
     async function fetchFriendsRequests(url, { rejectWithValue }) {
-        console.log(`url is ${url}`)
         let response = await fetch(url,
             {
                 credentials: 'include'

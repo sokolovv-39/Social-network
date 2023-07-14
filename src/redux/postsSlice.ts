@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
+import { ServerFileType } from "./photosSlice"
 
 type IPost = {
     id?: number,
@@ -6,7 +7,9 @@ type IPost = {
     content: string,
     userName?: string,
     userSurname?: string,
-    likesId?: []
+    likesId?: [],
+    photoData?: Array<File> | null,
+    name?: string
 }
 
 type IPostsSlice = {
@@ -27,8 +30,33 @@ const postSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchPosts.fulfilled, (state, action) => {
-                state.postsList = action.payload
+            .addCase(fetchPosts.fulfilled, (state, action: PayloadAction<IPost[]>) => {
+                state.postsList = []
+                action.payload.forEach(post => {
+                    if (!post.photoData) {
+                        state.postsList.push({
+                            ...post,
+                            photoData: []
+                        })
+                    }
+                    else {
+                        let files: Array<File> = []
+                        //@ts-ignore
+                        const serverFilesArr = JSON.parse(post.photoData)
+                        serverFilesArr.forEach((serverFile: ServerFileType) => {
+                            const fileBytes = new Uint8Array(serverFile.buffer.data)
+                            const fileName = serverFile.originalname
+                            const fileOptions = {
+                                type: serverFile.mimetype
+                            }
+                            files.push(new File([fileBytes], fileName, fileOptions))
+                        })
+                        state.postsList.push({
+                            ...post,
+                            photoData: files
+                        })
+                    }
+                })
             })
             .addCase(fetchNews.fulfilled, (state, action) => {
                 if (action.payload.length < 10) state.isEndNews = true
@@ -40,13 +68,22 @@ const postSlice = createSlice({
 export const publishPost = createAsyncThunk<undefined, IPost, { rejectValue: string }>(
     'posts/publishPost',
     async function publishPost(postData, { rejectWithValue }) {
+        const formData = new FormData()
+        formData.append('title', postData.title)
+        formData.append('content', postData.content)
+        console.log(postData.photoData)
+        if (postData.photoData) {
+            console.log('is true')
+            postData.photoData.forEach(file => {
+                formData.append('photo', file)
+            })
+        }
+        console.log('FILES FROM STORE')
+        console.log(formData.getAll('photo'))
         const response = await fetch('http://localhost:3000/api/posts/publishPost', {
             method: 'POST',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(postData)
+            body: formData
         })
         if (!response.ok) {
             return rejectWithValue('Failed to publish a post')

@@ -1,7 +1,7 @@
-import PersonCard from './PersonCard'
-import { useAppSelector } from '../hooks'
+import PersonCard from '../PersonCardComp/PersonCardComp'
+import { useAppSelector } from '../../hooks'
 
-const FriendRequests: React.FC = () => {
+const FriendRequestsComp: React.FC = () => {
     const reqList = useAppSelector(state => state.friendsRequests.friendsReqList)
 
     return (
@@ -21,4 +21,4 @@ const FriendRequests: React.FC = () => {
     )
 }
 
-export default FriendRequests
+export default FriendRequestsComp

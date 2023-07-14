@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import PostComp from '../components/PostComp'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import { fetchNews } from '../redux/postsSlice'
+import PostComp from '../../components/PostComp/PostComp'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { fetchNews } from '../../redux/postsSlice'
 
 const NewsPage: React.FC = () => {
     const news = useAppSelector(state => state.posts.newsList)

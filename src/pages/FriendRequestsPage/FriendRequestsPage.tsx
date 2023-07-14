@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import FriendRequests from "../components/FriendRequests"
-import { fetchFriendsRequests } from "../redux/friendsRequestsSlice"
-import { useAppDispatch, useAppSelector } from "../hooks"
+import FriendRequestsComp from "../../components/FriendRequestsComp/FriendRequestsComp"
+import { fetchFriendsRequests } from "../../redux/friendsRequestsSlice"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 const FriendRequestsPage: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -29,7 +29,7 @@ const FriendRequestsPage: React.FC = () => {
                     </li>
                 </ul>
             </div>
-            <FriendRequests />
+            <FriendRequestsComp />
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction, CaseReducer, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import * as socketIO from 'socket.io-client'
 
 type initialStateType = {
@@ -9,10 +9,11 @@ type initialStateType = {
 }
 type socketType = null | socketIO.Socket | socketIO.SocketOptions
 type newMessageType = {
+    id: string,
     from: string,
     body: string,
     datetime: string,
-    isRead: boolean
+    viewed: boolean
 }
 
 const initialState: initialStateType = {
@@ -25,11 +26,7 @@ const socketStoreSlice = createSlice({
     initialState,
     reducers: {
         establishConnection(state, action) {
-            console.log('CONNECTION ESTABLISHED')
-            console.log(action)
             state.socket = action.payload
-            console.log('socket state is')
-            console.log(state)
         },
         addNewMessage(state, action) {
             if (action.payload.from in state.newMessages) {
@@ -38,42 +35,49 @@ const socketStoreSlice = createSlice({
             else {
                 state.newMessages[action.payload.from] = [action.payload]
             }
-            console.log('state updated!')
-            console.log(state.newMessages)
         },
         sendNewMessage(state, action) {
             if (action.payload.to in state.newMessages) {
                 state.newMessages[action.payload.to].push({
+                    id: action.payload.id,
                     from: action.payload.from,
                     body: action.payload.body,
                     datetime: action.payload.datetime,
-                    isRead: action.payload.isRead
+                    viewed: action.payload.viewed,
                 })
             }
             else {
                 state.newMessages[action.payload.to] = [{
+                    id: action.payload.id,
                     from: action.payload.from,
                     body: action.payload.body,
                     datetime: action.payload.datetime,
-                    isRead: action.payload.isRead
+                    viewed: action.payload.viewed
                 }]
             }
-            console.log('state updated')
-            console.log(current(state))
+        },
+        markAsViewed(state, action) {
+            if (state.newMessages[action.payload.from]) {
+                const viewedMsgIndex = state.newMessages[action.payload.from].findIndex(msgObj => msgObj.id == action.payload.msgID)
+                state.newMessages[action.payload.from][viewedMsgIndex].viewed = true
+            }
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(uploadChatHistory.fulfilled, (state, action) => {
-                console.log('payload')
                 //@ts-ignore
                 state.newMessages[action.payload.from] = action.payload.messagesArr
-                console.log(current(state))
             })
     }
 })
 
-export const uploadChatHistory = createAsyncThunk<newMessageType[], string, { rejectValue: string }>(
+type uploadChatHistoryType = {
+    from: string,
+    messagesArr: newMessageType[]
+}
+
+export const uploadChatHistory = createAsyncThunk<uploadChatHistoryType, string, { rejectValue: string }>(
     'socketStore/uploadChatHistory',
     async function uploadChatHistory(interlocutorID, { rejectWithValue }) {
         const response = await fetch(`http://localhost:3000/api/chats/uploadChatHistory?interlocutorID=${interlocutorID}`, {
@@ -86,16 +90,6 @@ export const uploadChatHistory = createAsyncThunk<newMessageType[], string, { re
     }
 )
 
-export const markAsReadMsg = createAsyncThunk<undefined, string, { rejectValue: string }>(
-    'socketStore/markAsReadMsg',
-    async function markAsReadMsg(msgID, { rejectWithValue }) {
-        const response = await fetch(`http://localhost:3000/api/chats/markAsReadMsg?msgID=${msgID}`)
-        if (!response.ok) {
-            return rejectWithValue('No network')
-        }
-    }
-)
-
-export const { establishConnection, addNewMessage, sendNewMessage } = socketStoreSlice.actions
+export const { establishConnection, addNewMessage, sendNewMessage, markAsViewed } = socketStoreSlice.actions
 
 export default socketStoreSlice.reducer

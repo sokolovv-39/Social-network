@@ -6,32 +6,31 @@ export type chatPreviewType = {
     senderSurname: string | null,
     lastMessage: string | null
     datetime: string | null
-    isOnline: boolean | null
+    isOnline: boolean | null,
+    viewed: boolean
 }
-type messageObjType = {
-    message: string | null,
-    datetime: string | null,
-    viewed: boolean | null
-}
-type specificChatType = {
-    senderName: string | null,
-    senderSurname: string | null,
-    messagesArr: messageObjType[] | null
-} | {}
 type chatsGlobalType = {
-    chatsPreviewList: chatPreviewType[],
-    specificChat: specificChatType
+    chatsPreviewList: chatPreviewType[]
 }
 
 const initialState: chatsGlobalType = {
-    chatsPreviewList: [],
-    specificChat: {}
+    chatsPreviewList: []
 }
 
 const chatsSlice = createSlice({
     name: 'chatsGlobal',
     initialState,
-    reducers: {},
+    reducers: {
+        updateLastMessage(state, action) {
+            const index = state.chatsPreviewList.findIndex(previewObj => previewObj.id == action.payload.id)
+            if (index !== -1) {
+                console.log('UPDATE LAST MESSAGE IN PROGRESS...')
+                console.log(action.payload)
+                //@ts-ignore
+                state.chatsPreviewList[index] = action.payload
+            }
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(fetchChatsPreview.fulfilled, (state, action) => {
@@ -52,5 +51,7 @@ export const fetchChatsPreview = createAsyncThunk<chatPreviewType[], undefined, 
         else return await response.json()
     }
 )
+
+export const { updateLastMessage } = chatsSlice.actions
 
 export default chatsSlice.reducer

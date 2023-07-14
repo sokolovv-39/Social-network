@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import PersonCard from './PersonCard'
+import PersonCard from '../PersonCardComp/PersonCardComp'
 import { useNavigate } from 'react-router-dom'
-import { IFriendReq } from '../redux/friendsRequestsSlice'
-import { useAppSelector } from '../hooks'
+import { IFriendReq } from '../../redux/friendsRequestsSlice'
+import { useAppSelector } from '../../hooks'
 
 type PropsType = {
     dataArr: IFriendReq[]

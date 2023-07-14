@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import { answerFriendRequest, fetchFriendsRequests, sendFriendRequest } from '../redux/friendsRequestsSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { answerFriendRequest, fetchFriendsRequests, sendFriendRequest } from '../../redux/friendsRequestsSlice'
 import { useNavigate } from 'react-router-dom'
 import { nanoid } from 'nanoid'
 
@@ -20,7 +20,7 @@ type propsStringifyType = {
     isOnline: string | null
 }
 
-const PersonCard: React.FC<IpropsPerC> = (props) => {
+const PersonCardComp: React.FC<IpropsPerC> = (props) => {
     const userId = useAppSelector(state => state.userGlobal.global.id)
     const navigate = useNavigate()
     let propsStringify: propsStringifyType = {
@@ -124,4 +124,4 @@ const FriendComp: React.FC<IPropsButtons> = ({ id }) => {
     )
 }
 
-export default PersonCard
+export default PersonCardComp

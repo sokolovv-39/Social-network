@@ -5,6 +5,7 @@ import peopleGlobalReducer from './peopleGlobalSlice'
 import postsReducer from './postsSlice'
 import socketStoreSliceReducer from './socketSlice'
 import chatsSliceReducer from './chatsSlice'
+import photosSliceReducer from './photosSlice'
 
 const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
         posts: postsReducer,
         socketStore: socketStoreSliceReducer,
         chatsGlobal: chatsSliceReducer,
+        photosStore: photosSliceReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

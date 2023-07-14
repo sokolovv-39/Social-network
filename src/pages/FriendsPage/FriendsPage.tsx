@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../hooks"
-import PersonCard from "../components/PersonCard"
-import { fetchFriendsRequests } from "../redux/friendsRequestsSlice"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import PersonCard from "../../components/PersonCardComp/PersonCardComp"
+import { fetchFriendsRequests } from "../../redux/friendsRequestsSlice"
 
 const FriendsPage: React.FC = () => {
     const friends = useAppSelector(state => state.friendsRequests.friendsList)

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import SearchComp from '../components/SearchComp'
-import { useAppSelector, useAppDispatch } from '../hooks'
-import { fetchFriendsRequests } from '../redux/friendsRequestsSlice'
-import ChatsPreviewComp from '../components/ChatsPreviewComp'
+import SearchComp from '../../components/SearchComp/SearchComp'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { fetchFriendsRequests } from '../../redux/friendsRequestsSlice'
+import ChatsPreviewComp from '../../components/ChatsPreviewComp/ChatsPreviewComp'
 
 const ChatsListPage: React.FC = () => {
     const friendsArr = useAppSelector(state => state.friendsRequests.friendsList)
@@ -15,12 +15,6 @@ const ChatsListPage: React.FC = () => {
     useEffect(() => {
         dispatch(fetchFriendsRequests('http://localhost:3000/api/friends/getFriends'))
     }, [])
-    useEffect(() => {
-        console.log('CHATS MOUNTED')
-        return () => {
-            console.log('CHATS UNMOUNTED')
-        }
-    })
 
     return (
         <div>

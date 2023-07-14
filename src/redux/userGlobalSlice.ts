@@ -122,8 +122,6 @@ const userGlobalSlice = createSlice({
         },
         currentPathViewer(state, action) {
             state.global.currentPath = action.payload
-            console.log('********CURRENT PATH**********')
-            console.log(state.global.currentPath)
         }
     },
     extraReducers: (builder) => {
@@ -170,8 +168,6 @@ const userGlobalSlice = createSlice({
                     loading: false,
                     currentPath: window.location.href
                 }
-                console.log('background auth processed')
-                console.log(state)
             })
             .addCase(localExit.fulfilled, (state) => {
                 state = initialState

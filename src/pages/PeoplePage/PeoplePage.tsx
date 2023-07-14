@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchPeople } from "../redux/peopleGlobalSlice";
-import PersonCard from "../components/PersonCard";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { fetchPeople } from "../../redux/peopleGlobalSlice";
+import PersonCard from "../../components/PersonCardComp/PersonCardComp";
 
 const PeoplePage: React.FC = () => {
     const people = useAppSelector(state => state.peopleGlobal.peopleList)

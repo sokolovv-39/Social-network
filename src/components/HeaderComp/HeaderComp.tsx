@@ -1,7 +1,7 @@
 import React from 'react'
-import NavigateComp from './NavigateComp'
+import NavigateComp from '../NavigateComp/NavigateComp'
 
-const Header: React.FC = () => {
+const HeaderComp: React.FC = () => {
     return (
         <div>
             <h1>Это хэдэр</h1>
@@ -10,4 +10,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header
+export default HeaderComp

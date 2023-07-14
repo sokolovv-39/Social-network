@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IUserAuthInput, authenticateUser } from "../redux/userGlobalSlice";
-import { useAppDispatch } from "../hooks";
+import { IUserAuthInput, authenticateUser } from "../../redux/userGlobalSlice";
+import { useAppDispatch } from "../../hooks";
 import { useState } from 'react'
 
 const SignInPage: React.FC = () => {

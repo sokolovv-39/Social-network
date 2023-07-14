@@ -1,15 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Profile from "./pages/Profile";
-import SignUpPage from "./pages/SignUpPage";
-import SignInPage from "./pages/SignInPage";
-import PeoplePage from "./pages/PeoplePage";
-import FriendRequestsPage from "./pages/FriendRequestsPage";
-import FriendsPage from "./pages/FriendsPage";
-import NewsPage from "./pages/NewsPage";
-import ChatsListPage from "./pages/ChatsListPage";
-import ChatPage from "./pages/ChatPage";
-import TestPage from "./pages/TestPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import SignInPage from "./pages/SignInPage/SignInPage";
+import PeoplePage from "./pages/PeoplePage/PeoplePage";
+import FriendRequestsPage from "./pages/FriendRequestsPage/FriendRequestsPage";
+import FriendsPage from "./pages/FriendsPage/FriendsPage";
+import NewsPage from "./pages/NewsPage/NewsPage";
+import ChatsListPage from "./pages/ChatsListPage/ChatsListPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 export const router = createBrowserRouter([
     {
@@ -22,7 +21,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'profile/:userId',
-                element: <Profile />,
+                element: <ProfilePage />,
             },
             {
                 path: 'profile/:userId/people',
@@ -53,9 +52,5 @@ export const router = createBrowserRouter([
                 element: <ChatPage />
             }
         ]
-    },
-    {
-        path: '/testPage',
-        element: <TestPage />
     }
 ])

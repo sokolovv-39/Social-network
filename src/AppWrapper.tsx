@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { currentPathViewer } from "./redux/userGlobalSlice";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import HeaderComp from "./components/HeaderComp/HeaderComp";
+import FooterComp from "./components/FooterComp/FooterComp";
 import { Outlet, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks";
 
@@ -16,12 +16,12 @@ const AppWrapper: React.FC = () => {
     return (
         <div>
             <Link to='/testPage'>Test Page</Link>
-            {(!user.currentPath?.match(/signIn/) && !user.currentPath?.match(/signUp/)) && <Header />}
+            {(!user.currentPath?.match(/signIn/) && !user.currentPath?.match(/signUp/)) && <HeaderComp />}
             <div>
                 Боковая панель
             </div>
             <Outlet />
-            <Footer />
+            <FooterComp />
         </div >
     )
 }

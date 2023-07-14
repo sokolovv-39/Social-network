@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppDispatch } from "../hooks";
-import { registerRequest } from "../redux/userGlobalSlice";
+import { useAppDispatch } from "../../hooks";
+import { registerRequest } from "../../redux/userGlobalSlice";
 import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom'
-import { IUserRegisterInput } from "../redux/userGlobalSlice";
+import { IUserRegisterInput } from "../../redux/userGlobalSlice";
 
 const SignUpPage: React.FC = () => {
     const dispatch = useAppDispatch()
