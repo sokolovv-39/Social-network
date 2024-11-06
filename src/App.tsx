@@ -1,9 +1,9 @@
-import './App.css'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks'
 import { backgroundAuth } from './redux/userGlobalSlice'
-import AppWrapper from './AppWrapper'
+import AppWrapperComp from './components/AppWrapperComp/AppWrapperComp'
+import classes from './App.module.scss'
 
 export default function App() {
   const dispatch = useAppDispatch()
@@ -34,8 +34,8 @@ export default function App() {
   }, [socket, userID])
 
   return (
-    <div>
-      <AppWrapper />
+    <div className={classes.Wrapper}>
+      <AppWrapperComp />
     </div>
   )
 }

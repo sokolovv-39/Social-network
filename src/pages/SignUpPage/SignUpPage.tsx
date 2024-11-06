@@ -1,9 +1,10 @@
 import React from "react";
-import { useAppDispatch } from "../hooks";
-import { registerRequest } from "../redux/userGlobalSlice";
+import { useAppDispatch } from "../../hooks";
+import { registerRequest } from "../../redux/userGlobalSlice";
 import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom'
-import { IUserRegisterInput } from "../redux/userGlobalSlice";
+import { IUserRegisterInput } from "../../redux/userGlobalSlice";
+import classes from './SignUpPage.module.scss'
 
 const SignUpPage: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -38,50 +39,29 @@ const SignUpPage: React.FC = () => {
         }
     }
     return (
-        <div>
-            <form id="form" method="post" onSubmit={handleSubmit}>
-                <fieldset>
-                    <ul>
-                        <li>
-                            <label htmlFor="name">
-                                <span>Name</span>
-                                <strong><abbr title="required">*</abbr></strong>
-                            </label>
+        <div className={classes.Wrapper}>
+            <form onSubmit={handleSubmit}>
+                <div className={classes.InputBlock}>
+                <label htmlFor="name">Name</label>
                             <input type="text" id="name" name="name" required />
-                        </li>
-                        <li>
-                            <label htmlFor="surname">
-                                <span>Surname</span>
-                                <strong><abbr title="required">*</abbr></strong>
-                            </label>
+                </div>
+                <div className={classes.InputBlock}>
+                <label htmlFor="surname">Surname</label>
                             <input type="text" id="surname" name="surname" required />
-                        </li>
-                        <li>
-                            <label htmlFor="email">
-                                <span>E-mail</span>
-                                <strong><abbr title="required">*</abbr></strong>
-                            </label>
+                </div>
+                <div className={classes.InputBlock}>
+                <label htmlFor="email">E-mail</label>
                             <input type="email" id="email" name="email" required />
-                        </li>
-                        <li>
-                            <label htmlFor="pwd">
-                                <span>Create password</span>
-                                <strong><abbr title="required">*</abbr></strong>
-                            </label>
+                </div>
+                <div className={classes.InputBlock}>
+                <label htmlFor="pwd">Create password</label>
                             <input type="password" id="pwd" name="password" required />
-                        </li>
-                        <li>
-                            <label htmlFor="repeat-pwd">
-                                <span>Repeat password</span>
-                                <strong><abbr title="required">*</abbr></strong>
-                            </label>
-                            <input type="password" id="repeat-pwd" name="repeat-password" required />
-                        </li>
-                    </ul>
-                </fieldset>
-                <p>
-                    <button type="submit">Register</button>
-                </p>
+                </div>
+                <div className={classes.InputBlock}>
+                <label htmlFor="repeat-pwd">Repeat password</label>
+                <input type="password" id="pwd" name="repeat-password" required />
+                </div>
+                <button type="submit">Register</button>
             </form>
             {matchPwds && <PwdsNotMath />}
             {error && <Error />}
